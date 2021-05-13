@@ -81,6 +81,9 @@ public class AutomaticBrightnessStrategy {
     // If the auto-brightness model for the last manual changes done by the user.
     private boolean mIsShortTermModelActive = false;
 
+    // Whether auto brightness is applied one shot when screen is turned on
+    private boolean mAutoBrightnessOneShotEnabled;
+
     // The BrightnessConfiguration currently being used
     // Todo(273543270): BrightnessConfiguration is an internal implementation detail of
     //  AutomaticBrightnessController, and AutomaticBrightnessStrategy shouldn't be aware of its
@@ -129,6 +132,10 @@ public class AutomaticBrightnessStrategy {
 
     public boolean isAutoBrightnessDisabledDueToDisplayOff() {
         return mAutoBrightnessDisabledDueToDisplayOff;
+    }
+
+    public void setAutoBrightnessOneShotEnabled(boolean enabled) {
+        mAutoBrightnessOneShotEnabled = enabled;
     }
 
     /**
@@ -392,7 +399,7 @@ public class AutomaticBrightnessStrategy {
                     brightnessConfiguration,
                     lastUserSetScreenBrightness,
                     userSetBrightnessChanged, autoBrightnessAdjustment,
-                    mAutoBrightnessAdjustmentChanged, policy, mShouldResetShortTermModel);
+                    mAutoBrightnessAdjustmentChanged, policy, mShouldResetShortTermModel, mAutoBrightnessOneShotEnabled);
             mShouldResetShortTermModel = false;
             // We take note if the user brightness point is still being used in the current
             // auto-brightness model.
